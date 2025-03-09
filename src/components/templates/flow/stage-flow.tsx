@@ -14,7 +14,7 @@ import {
 import { edgeTypes, initialEdges } from "@/components/edges";
 import { initialNodes, nodeTypes } from "@/components/nodes";
 
-export default function Stage() {
+export default function StageFlow() {
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect: OnConnect = useCallback((connection) => setEdges((edges) => addEdge(connection, edges)), [setEdges]);

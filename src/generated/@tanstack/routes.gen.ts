@@ -12,8 +12,10 @@
 
 import { Route as rootRoute } from "./../../routes/__root"
 import { Route as ConnectionsImport } from "./../../routes/connections"
+import { Route as FlowRouteImport } from "./../../routes/flow/route"
 import { Route as IndexImport } from "./../../routes/index"
 import { Route as SettingsIndexImport } from "./../../routes/settings/index"
+import { Route as FlowIndexImport } from "./../../routes/flow/index"
 import { Route as SettingsGeneralImport } from "./../../routes/settings/general"
 
 // Create/Update Routes
@@ -21,6 +23,12 @@ import { Route as SettingsGeneralImport } from "./../../routes/settings/general"
 const ConnectionsRoute = ConnectionsImport.update({
   id: "/connections",
   path: "/connections",
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FlowRouteRoute = FlowRouteImport.update({
+  id: "/flow",
+  path: "/flow",
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -34,6 +42,12 @@ const SettingsIndexRoute = SettingsIndexImport.update({
   id: "/settings/",
   path: "/settings/",
   getParentRoute: () => rootRoute,
+} as any)
+
+const FlowIndexRoute = FlowIndexImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => FlowRouteRoute,
 } as any)
 
 const SettingsGeneralRoute = SettingsGeneralImport.update({
@@ -53,6 +67,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    "/flow": {
+      id: "/flow"
+      path: "/flow"
+      fullPath: "/flow"
+      preLoaderRoute: typeof FlowRouteImport
+      parentRoute: typeof rootRoute
+    }
     "/connections": {
       id: "/connections"
       path: "/connections"
@@ -67,6 +88,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof SettingsGeneralImport
       parentRoute: typeof rootRoute
     }
+    "/flow/": {
+      id: "/flow/"
+      path: "/"
+      fullPath: "/flow/"
+      preLoaderRoute: typeof FlowIndexImport
+      parentRoute: typeof FlowRouteImport
+    }
     "/settings/": {
       id: "/settings/"
       path: "/settings"
@@ -79,10 +107,24 @@ declare module "@tanstack/react-router" {
 
 // Create and export the route tree
 
+interface FlowRouteRouteChildren {
+  FlowIndexRoute: typeof FlowIndexRoute
+}
+
+const FlowRouteRouteChildren: FlowRouteRouteChildren = {
+  FlowIndexRoute: FlowIndexRoute,
+}
+
+const FlowRouteRouteWithChildren = FlowRouteRoute._addFileChildren(
+  FlowRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute
+  "/flow": typeof FlowRouteRouteWithChildren
   "/connections": typeof ConnectionsRoute
   "/settings/general": typeof SettingsGeneralRoute
+  "/flow/": typeof FlowIndexRoute
   "/settings": typeof SettingsIndexRoute
 }
 
@@ -90,28 +132,45 @@ export interface FileRoutesByTo {
   "/": typeof IndexRoute
   "/connections": typeof ConnectionsRoute
   "/settings/general": typeof SettingsGeneralRoute
+  "/flow": typeof FlowIndexRoute
   "/settings": typeof SettingsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   "/": typeof IndexRoute
+  "/flow": typeof FlowRouteRouteWithChildren
   "/connections": typeof ConnectionsRoute
   "/settings/general": typeof SettingsGeneralRoute
+  "/flow/": typeof FlowIndexRoute
   "/settings/": typeof SettingsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/connections" | "/settings/general" | "/settings"
+  fullPaths:
+    | "/"
+    | "/flow"
+    | "/connections"
+    | "/settings/general"
+    | "/flow/"
+    | "/settings"
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/connections" | "/settings/general" | "/settings"
-  id: "__root__" | "/" | "/connections" | "/settings/general" | "/settings/"
+  to: "/" | "/connections" | "/settings/general" | "/flow" | "/settings"
+  id:
+    | "__root__"
+    | "/"
+    | "/flow"
+    | "/connections"
+    | "/settings/general"
+    | "/flow/"
+    | "/settings/"
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FlowRouteRoute: typeof FlowRouteRouteWithChildren
   ConnectionsRoute: typeof ConnectionsRoute
   SettingsGeneralRoute: typeof SettingsGeneralRoute
   SettingsIndexRoute: typeof SettingsIndexRoute
@@ -119,6 +178,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FlowRouteRoute: FlowRouteRouteWithChildren,
   ConnectionsRoute: ConnectionsRoute,
   SettingsGeneralRoute: SettingsGeneralRoute,
   SettingsIndexRoute: SettingsIndexRoute,
@@ -135,6 +195,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/flow",
         "/connections",
         "/settings/general",
         "/settings/"
@@ -143,11 +204,21 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
+    "/flow": {
+      "filePath": "flow/route.tsx",
+      "children": [
+        "/flow/"
+      ]
+    },
     "/connections": {
       "filePath": "connections.tsx"
     },
     "/settings/general": {
       "filePath": "settings/general.tsx"
+    },
+    "/flow/": {
+      "filePath": "flow/index.tsx",
+      "parent": "/flow"
     },
     "/settings/": {
       "filePath": "settings/index.tsx"
