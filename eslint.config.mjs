@@ -1,13 +1,14 @@
+import css from "@eslint/css";
+import { tailwindSyntax } from "@eslint/css/syntax";
 import js from "@eslint/js";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 import pluginRouter from "@tanstack/eslint-plugin-router";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import css from "@eslint/css";
-import { tailwindSyntax } from "@eslint/css/syntax";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default tseslint.config(
   { ignores: ["dist", "src/generated"] },
@@ -26,8 +27,7 @@ export default tseslint.config(
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      "@tanstack/router": pluginRouter,
-      react: react,
+      "react": react,
     },
     settings: {
       tailwindcss: {
@@ -43,10 +43,7 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...react.configs["jsx-runtime"].rules,
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
+      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "@tanstack/router/create-route-property-order": "error",
       "react-refresh/only-export-components": "off",
       "object-shorthand": ["warn", "always"],
@@ -72,4 +69,6 @@ export default tseslint.config(
     },
   },
   eslintConfigPrettier,
+  ...pluginRouter.configs["flat/recommended"],
+  ...pluginQuery.configs["flat/recommended"],
 );
