@@ -24,11 +24,7 @@ const config = {
     "",
     "^[.]", // relative imports
   ],
-  plugins: [
-    "prettier-plugin-packagejson",
-    "@ianvs/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss",
-  ],
+  plugins: ["prettier-plugin-packagejson", "@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
   printWidth: 120,
   quoteProps: "consistent",
   semi: true,

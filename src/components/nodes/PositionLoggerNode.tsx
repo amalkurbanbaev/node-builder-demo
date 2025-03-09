@@ -1,12 +1,10 @@
-import { Handle, Position, type NodeProps } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react";
+
+import type { NodeProps } from "@xyflow/react";
 
 import { type PositionLoggerNode } from "./types";
 
-export function PositionLoggerNode({
-  positionAbsoluteX,
-  positionAbsoluteY,
-  data,
-}: NodeProps<PositionLoggerNode>) {
+export function PositionLoggerNode({ positionAbsoluteX, positionAbsoluteY, data }: NodeProps<PositionLoggerNode>) {
   const x = `${Math.round(positionAbsoluteX)}px`;
   const y = `${Math.round(positionAbsoluteY)}px`;
 
