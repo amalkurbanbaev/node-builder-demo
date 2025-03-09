@@ -5,7 +5,6 @@ import { PageLayout } from "@/components/layouts/page-layout";
 export const Route = createRootRoute({
   component: () => (
     <PageLayout>
-      <PageLayout.Header />
       <PageLayout.Content>
         <Outlet />
       </PageLayout.Content>
