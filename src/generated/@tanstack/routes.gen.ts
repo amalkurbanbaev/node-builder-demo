@@ -11,17 +11,12 @@
 // Import Routes
 
 import { Route as rootRoute } from "./../../routes/__root"
-import { Route as SettingsImport } from "./../../routes/settings"
 import { Route as ConnectionsImport } from "./../../routes/connections"
 import { Route as IndexImport } from "./../../routes/index"
+import { Route as SettingsIndexImport } from "./../../routes/settings/index"
+import { Route as SettingsGeneralImport } from "./../../routes/settings/general"
 
 // Create/Update Routes
-
-const SettingsRoute = SettingsImport.update({
-  id: "/settings",
-  path: "/settings",
-  getParentRoute: () => rootRoute,
-} as any)
 
 const ConnectionsRoute = ConnectionsImport.update({
   id: "/connections",
@@ -32,6 +27,18 @@ const ConnectionsRoute = ConnectionsImport.update({
 const IndexRoute = IndexImport.update({
   id: "/",
   path: "/",
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SettingsIndexRoute = SettingsIndexImport.update({
+  id: "/settings/",
+  path: "/settings/",
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SettingsGeneralRoute = SettingsGeneralImport.update({
+  id: "/settings/general",
+  path: "/settings/general",
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,11 +60,18 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ConnectionsImport
       parentRoute: typeof rootRoute
     }
-    "/settings": {
-      id: "/settings"
+    "/settings/general": {
+      id: "/settings/general"
+      path: "/settings/general"
+      fullPath: "/settings/general"
+      preLoaderRoute: typeof SettingsGeneralImport
+      parentRoute: typeof rootRoute
+    }
+    "/settings/": {
+      id: "/settings/"
       path: "/settings"
       fullPath: "/settings"
-      preLoaderRoute: typeof SettingsImport
+      preLoaderRoute: typeof SettingsIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -68,41 +82,46 @@ declare module "@tanstack/react-router" {
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute
   "/connections": typeof ConnectionsRoute
-  "/settings": typeof SettingsRoute
+  "/settings/general": typeof SettingsGeneralRoute
+  "/settings": typeof SettingsIndexRoute
 }
 
 export interface FileRoutesByTo {
   "/": typeof IndexRoute
   "/connections": typeof ConnectionsRoute
-  "/settings": typeof SettingsRoute
+  "/settings/general": typeof SettingsGeneralRoute
+  "/settings": typeof SettingsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   "/": typeof IndexRoute
   "/connections": typeof ConnectionsRoute
-  "/settings": typeof SettingsRoute
+  "/settings/general": typeof SettingsGeneralRoute
+  "/settings/": typeof SettingsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/connections" | "/settings"
+  fullPaths: "/" | "/connections" | "/settings/general" | "/settings"
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/connections" | "/settings"
-  id: "__root__" | "/" | "/connections" | "/settings"
+  to: "/" | "/connections" | "/settings/general" | "/settings"
+  id: "__root__" | "/" | "/connections" | "/settings/general" | "/settings/"
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConnectionsRoute: typeof ConnectionsRoute
-  SettingsRoute: typeof SettingsRoute
+  SettingsGeneralRoute: typeof SettingsGeneralRoute
+  SettingsIndexRoute: typeof SettingsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConnectionsRoute: ConnectionsRoute,
-  SettingsRoute: SettingsRoute,
+  SettingsGeneralRoute: SettingsGeneralRoute,
+  SettingsIndexRoute: SettingsIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -117,7 +136,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/connections",
-        "/settings"
+        "/settings/general",
+        "/settings/"
       ]
     },
     "/": {
@@ -126,8 +146,11 @@ export const routeTree = rootRoute
     "/connections": {
       "filePath": "connections.tsx"
     },
-    "/settings": {
-      "filePath": "settings.tsx"
+    "/settings/general": {
+      "filePath": "settings/general.tsx"
+    },
+    "/settings/": {
+      "filePath": "settings/index.tsx"
     }
   }
 }

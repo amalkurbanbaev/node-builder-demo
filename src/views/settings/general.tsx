@@ -1,3 +1,3 @@
-export default function GeneralView() {
+export default function SettingsGeneralView() {
   return <div>General</div>;
 }

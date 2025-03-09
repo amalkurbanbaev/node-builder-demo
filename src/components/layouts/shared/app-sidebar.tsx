@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@tanstack/react-router";
-import { BookOpen, Link2, Settings2, SquareTerminal, Workflow } from "lucide-react";
+import { Workflow } from "lucide-react";
 
 import {
   Sidebar,
@@ -12,84 +12,16 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { SIDEBAR_DATA } from "@/constants/sidebar-data";
 
 import type * as React from "react";
 
 import { NavMain } from "../navs/nav-main";
 import { NavUser } from "../navs/nav-user";
 
-const data = {
-  user: {
-    name: "iwanivanov",
-    email: "iwanivanov@gmail.com",
-    avatar: "https://github.com/gaearon.png",
-  },
-  navMain: [
-    {
-      title: "Playground",
-      url: "/dashboard",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "Create new flow",
-          url: "/flow",
-        },
-        {
-          title: "My flows",
-          url: "/dashboard",
-        },
-        {
-          title: "Store",
-          url: "/store",
-        },
-      ],
-    },
-    {
-      title: "Connections",
-      url: "/connections",
-      icon: Link2,
-    },
-    {
-      title: "Documentation",
-      url: "/documentation",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "/documentation",
-        },
-        {
-          title: "Get Started",
-          url: "/documentation",
-        },
-        {
-          title: "Tutorials",
-          url: "/documentation",
-        },
-        {
-          title: "Changelog",
-          url: "/documentation",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-      ],
-    },
-  ],
-};
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="inset" className="md:flex" {...props}>
+    <Sidebar variant="floating" className="md:flex" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -108,10 +40,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={SIDEBAR_DATA.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={SIDEBAR_DATA.user} />
       </SidebarFooter>
     </Sidebar>
   );
