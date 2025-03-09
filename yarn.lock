@@ -1035,6 +1035,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.67.2":
+  version: 5.67.2
+  resolution: "@tanstack/query-core@npm:5.67.2"
+  checksum: 10c0/1824fbd72d07a575a71565d7fd975270b51bdf311dcfcafe21cf83c4b704af06962bbdd49019994a27edb32013aef51180bf412cca8399ac2d4cf0dc6cc8993c
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.67.2":
+  version: 5.67.2
+  resolution: "@tanstack/react-query@npm:5.67.2"
+  dependencies:
+    "@tanstack/query-core": "npm:5.67.2"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/70665f0fb9668475948dd285542eb7c2b15fb9ee6e25dd4c710ce1db4a5bfa5a879983b05d5462b72e4782a09ac2fb5550486592dabb0d37544fdc5e65bafdc3
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-router@npm:^1.114.3":
   version: 1.114.3
   resolution: "@tanstack/react-router@npm:1.114.3"
@@ -5095,6 +5113,7 @@ __metadata:
     "@tailwindcss/vite": "npm:^4.0.12"
     "@tanstack/eslint-plugin-query": "npm:^5.67.2"
     "@tanstack/eslint-plugin-router": "npm:^1.114.3"
+    "@tanstack/react-query": "npm:^5.67.2"
     "@tanstack/react-router": "npm:^1.114.3"
     "@tanstack/router-plugin": "npm:^1.114.3"
     "@types/node": "npm:^22.13.10"
@@ -5124,6 +5143,7 @@ __metadata:
     typescript: "npm:^5.8.2"
     typescript-eslint: "npm:^8.26.0"
     vite: "npm:^6.2.1"
+    zod: "npm:^3.24.2"
   languageName: unknown
   linkType: soft
 
@@ -5326,7 +5346,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.24.1":
+"zod@npm:^3.24.1, zod@npm:^3.24.2":
   version: 3.24.2
   resolution: "zod@npm:3.24.2"
   checksum: 10c0/c638c7220150847f13ad90635b3e7d0321b36cce36f3fc6050ed960689594c949c326dfe2c6fa87c14b126ee5d370ccdebd6efb304f41ef5557a4aaca2824565

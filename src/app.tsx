@@ -1,4 +1,8 @@
-import { createRouter } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { ZodError } from "zod";
+
+import { routeTree } from "./generated/@tanstack/routes.gen";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,9 +21,7 @@ const queryClient = new QueryClient({
 
 const router = createRouter({
   routeTree,
-
   context: {
-    auth: undefined!,
     queryClient,
   },
   defaultPreload: "intent",
@@ -46,9 +48,7 @@ function InnerApp() {
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <InnerApp />
-      </AuthProvider>
+      <InnerApp />
     </QueryClientProvider>
   );
 }
