@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { ZodError } from "zod";
 
+import { ThemeProvider } from "./components/providers/theme-provider";
 import { routeTree } from "./generated/@tanstack/routes.gen";
 
 const queryClient = new QueryClient({
@@ -48,7 +49,9 @@ function InnerApp() {
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <InnerApp />
+      <ThemeProvider defaultTheme="light" storageKey="ui-dark-mode">
+        <InnerApp />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
