@@ -5,6 +5,9 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import css from "@eslint/css";
+import { tailwindSyntax } from "@eslint/css/syntax";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default tseslint.config(
   { ignores: ["dist", "src/generated"] },
@@ -30,7 +33,6 @@ export default tseslint.config(
       tailwindcss: {
         callees: ["cn", "cva"],
         whitelist: ["toaster"],
-        config: "tailwind.config.js",
       },
       react: {
         version: "detect",
@@ -55,5 +57,19 @@ export default tseslint.config(
       "react/prop-types": "off",
       "react/no-unescaped-entities": ["off"],
     },
-  }
+  },
+  {
+    files: ["**/*.css"],
+    plugins: {
+      css,
+    },
+    language: "css/css",
+    languageOptions: {
+      customSyntax: tailwindSyntax,
+    },
+    rules: {
+      "css/no-empty-blocks": "error",
+    },
+  },
+  eslintConfigPrettier,
 );

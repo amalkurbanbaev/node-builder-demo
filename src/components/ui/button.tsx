@@ -31,10 +31,8 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
-
-console.log("123");
 
 function Button({
   className,

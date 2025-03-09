@@ -1,0 +1,13 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore files:
+.DS_Store
+
+# Ignore directories:
+node_modules
+dist
+
+# Ignore files:
+.prettierrc

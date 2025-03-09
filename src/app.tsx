@@ -20,7 +20,7 @@ export default function App() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect: OnConnect = useCallback(
     (connection) => setEdges((edges) => addEdge(connection, edges)),
-    [setEdges]
+    [setEdges],
   );
 
   return (
@@ -38,7 +38,7 @@ export default function App() {
         gap={12}
         bgColor="var(--muted)"
         color="var(--muted-foreground)"
-        className="opacity-50" 
+        className="opacity-50"
         size={1.1}
       />
       <MiniMap />
