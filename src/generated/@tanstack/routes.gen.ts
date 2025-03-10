@@ -11,20 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from "./../../routes/__root"
-import { Route as ConnectionsImport } from "./../../routes/connections"
 import { Route as FlowRouteImport } from "./../../routes/flow/route"
-import { Route as IndexImport } from "./../../routes/index"
-import { Route as SettingsIndexImport } from "./../../routes/settings/index"
+import { Route as DashboardRouteImport } from "./../../routes/_dashboard/route"
 import { Route as FlowIndexImport } from "./../../routes/flow/index"
-import { Route as SettingsGeneralImport } from "./../../routes/settings/general"
+import { Route as DashboardIndexImport } from "./../../routes/_dashboard/index"
+import { Route as DashboardTemplatesImport } from "./../../routes/_dashboard/templates"
+import { Route as DashboardProjectsImport } from "./../../routes/_dashboard/projects"
+import { Route as DashboardSettingsIndexImport } from "./../../routes/_dashboard/settings/index"
+import { Route as DashboardDocumentationIndexImport } from "./../../routes/_dashboard/documentation/index"
+import { Route as DashboardConnectionsIndexImport } from "./../../routes/_dashboard/connections/index"
+import { Route as DashboardSettingsGeneralImport } from "./../../routes/_dashboard/settings/general"
 
 // Create/Update Routes
-
-const ConnectionsRoute = ConnectionsImport.update({
-  id: "/connections",
-  path: "/connections",
-  getParentRoute: () => rootRoute,
-} as any)
 
 const FlowRouteRoute = FlowRouteImport.update({
   id: "/flow",
@@ -32,15 +30,8 @@ const FlowRouteRoute = FlowRouteImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SettingsIndexRoute = SettingsIndexImport.update({
-  id: "/settings/",
-  path: "/settings/",
+const DashboardRouteRoute = DashboardRouteImport.update({
+  id: "/_dashboard",
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -50,21 +41,58 @@ const FlowIndexRoute = FlowIndexImport.update({
   getParentRoute: () => FlowRouteRoute,
 } as any)
 
-const SettingsGeneralRoute = SettingsGeneralImport.update({
+const DashboardIndexRoute = DashboardIndexImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardTemplatesRoute = DashboardTemplatesImport.update({
+  id: "/templates",
+  path: "/templates",
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardProjectsRoute = DashboardProjectsImport.update({
+  id: "/projects",
+  path: "/projects",
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardSettingsIndexRoute = DashboardSettingsIndexImport.update({
+  id: "/settings/",
+  path: "/settings/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardDocumentationIndexRoute =
+  DashboardDocumentationIndexImport.update({
+    id: "/documentation/",
+    path: "/documentation/",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+
+const DashboardConnectionsIndexRoute = DashboardConnectionsIndexImport.update({
+  id: "/connections/",
+  path: "/connections/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardSettingsGeneralRoute = DashboardSettingsGeneralImport.update({
   id: "/settings/general",
   path: "/settings/general",
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => DashboardRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/": {
-      id: "/"
-      path: "/"
-      fullPath: "/"
-      preLoaderRoute: typeof IndexImport
+    "/_dashboard": {
+      id: "/_dashboard"
+      path: ""
+      fullPath: ""
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRoute
     }
     "/flow": {
@@ -74,19 +102,26 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof FlowRouteImport
       parentRoute: typeof rootRoute
     }
-    "/connections": {
-      id: "/connections"
-      path: "/connections"
-      fullPath: "/connections"
-      preLoaderRoute: typeof ConnectionsImport
-      parentRoute: typeof rootRoute
+    "/_dashboard/projects": {
+      id: "/_dashboard/projects"
+      path: "/projects"
+      fullPath: "/projects"
+      preLoaderRoute: typeof DashboardProjectsImport
+      parentRoute: typeof DashboardRouteImport
     }
-    "/settings/general": {
-      id: "/settings/general"
-      path: "/settings/general"
-      fullPath: "/settings/general"
-      preLoaderRoute: typeof SettingsGeneralImport
-      parentRoute: typeof rootRoute
+    "/_dashboard/templates": {
+      id: "/_dashboard/templates"
+      path: "/templates"
+      fullPath: "/templates"
+      preLoaderRoute: typeof DashboardTemplatesImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    "/_dashboard/": {
+      id: "/_dashboard/"
+      path: "/"
+      fullPath: "/"
+      preLoaderRoute: typeof DashboardIndexImport
+      parentRoute: typeof DashboardRouteImport
     }
     "/flow/": {
       id: "/flow/"
@@ -95,17 +130,62 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof FlowIndexImport
       parentRoute: typeof FlowRouteImport
     }
-    "/settings/": {
-      id: "/settings/"
+    "/_dashboard/settings/general": {
+      id: "/_dashboard/settings/general"
+      path: "/settings/general"
+      fullPath: "/settings/general"
+      preLoaderRoute: typeof DashboardSettingsGeneralImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    "/_dashboard/connections/": {
+      id: "/_dashboard/connections/"
+      path: "/connections"
+      fullPath: "/connections"
+      preLoaderRoute: typeof DashboardConnectionsIndexImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    "/_dashboard/documentation/": {
+      id: "/_dashboard/documentation/"
+      path: "/documentation"
+      fullPath: "/documentation"
+      preLoaderRoute: typeof DashboardDocumentationIndexImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    "/_dashboard/settings/": {
+      id: "/_dashboard/settings/"
       path: "/settings"
       fullPath: "/settings"
-      preLoaderRoute: typeof SettingsIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof DashboardSettingsIndexImport
+      parentRoute: typeof DashboardRouteImport
     }
   }
 }
 
 // Create and export the route tree
+
+interface DashboardRouteRouteChildren {
+  DashboardProjectsRoute: typeof DashboardProjectsRoute
+  DashboardTemplatesRoute: typeof DashboardTemplatesRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardSettingsGeneralRoute: typeof DashboardSettingsGeneralRoute
+  DashboardConnectionsIndexRoute: typeof DashboardConnectionsIndexRoute
+  DashboardDocumentationIndexRoute: typeof DashboardDocumentationIndexRoute
+  DashboardSettingsIndexRoute: typeof DashboardSettingsIndexRoute
+}
+
+const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardProjectsRoute: DashboardProjectsRoute,
+  DashboardTemplatesRoute: DashboardTemplatesRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardSettingsGeneralRoute: DashboardSettingsGeneralRoute,
+  DashboardConnectionsIndexRoute: DashboardConnectionsIndexRoute,
+  DashboardDocumentationIndexRoute: DashboardDocumentationIndexRoute,
+  DashboardSettingsIndexRoute: DashboardSettingsIndexRoute,
+}
+
+const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
+  DashboardRouteRouteChildren,
+)
 
 interface FlowRouteRouteChildren {
   FlowIndexRoute: typeof FlowIndexRoute
@@ -120,68 +200,89 @@ const FlowRouteRouteWithChildren = FlowRouteRoute._addFileChildren(
 )
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
+  "": typeof DashboardRouteRouteWithChildren
   "/flow": typeof FlowRouteRouteWithChildren
-  "/connections": typeof ConnectionsRoute
-  "/settings/general": typeof SettingsGeneralRoute
+  "/projects": typeof DashboardProjectsRoute
+  "/templates": typeof DashboardTemplatesRoute
+  "/": typeof DashboardIndexRoute
   "/flow/": typeof FlowIndexRoute
-  "/settings": typeof SettingsIndexRoute
+  "/settings/general": typeof DashboardSettingsGeneralRoute
+  "/connections": typeof DashboardConnectionsIndexRoute
+  "/documentation": typeof DashboardDocumentationIndexRoute
+  "/settings": typeof DashboardSettingsIndexRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute
-  "/connections": typeof ConnectionsRoute
-  "/settings/general": typeof SettingsGeneralRoute
+  "/projects": typeof DashboardProjectsRoute
+  "/templates": typeof DashboardTemplatesRoute
+  "/": typeof DashboardIndexRoute
   "/flow": typeof FlowIndexRoute
-  "/settings": typeof SettingsIndexRoute
+  "/settings/general": typeof DashboardSettingsGeneralRoute
+  "/connections": typeof DashboardConnectionsIndexRoute
+  "/documentation": typeof DashboardDocumentationIndexRoute
+  "/settings": typeof DashboardSettingsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  "/": typeof IndexRoute
+  "/_dashboard": typeof DashboardRouteRouteWithChildren
   "/flow": typeof FlowRouteRouteWithChildren
-  "/connections": typeof ConnectionsRoute
-  "/settings/general": typeof SettingsGeneralRoute
+  "/_dashboard/projects": typeof DashboardProjectsRoute
+  "/_dashboard/templates": typeof DashboardTemplatesRoute
+  "/_dashboard/": typeof DashboardIndexRoute
   "/flow/": typeof FlowIndexRoute
-  "/settings/": typeof SettingsIndexRoute
+  "/_dashboard/settings/general": typeof DashboardSettingsGeneralRoute
+  "/_dashboard/connections/": typeof DashboardConnectionsIndexRoute
+  "/_dashboard/documentation/": typeof DashboardDocumentationIndexRoute
+  "/_dashboard/settings/": typeof DashboardSettingsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
+    | ""
     | "/flow"
-    | "/connections"
-    | "/settings/general"
+    | "/projects"
+    | "/templates"
+    | "/"
     | "/flow/"
+    | "/settings/general"
+    | "/connections"
+    | "/documentation"
     | "/settings"
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/connections" | "/settings/general" | "/flow" | "/settings"
-  id:
-    | "__root__"
+  to:
+    | "/projects"
+    | "/templates"
     | "/"
     | "/flow"
-    | "/connections"
     | "/settings/general"
+    | "/connections"
+    | "/documentation"
+    | "/settings"
+  id:
+    | "__root__"
+    | "/_dashboard"
+    | "/flow"
+    | "/_dashboard/projects"
+    | "/_dashboard/templates"
+    | "/_dashboard/"
     | "/flow/"
-    | "/settings/"
+    | "/_dashboard/settings/general"
+    | "/_dashboard/connections/"
+    | "/_dashboard/documentation/"
+    | "/_dashboard/settings/"
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   FlowRouteRoute: typeof FlowRouteRouteWithChildren
-  ConnectionsRoute: typeof ConnectionsRoute
-  SettingsGeneralRoute: typeof SettingsGeneralRoute
-  SettingsIndexRoute: typeof SettingsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  DashboardRouteRoute: DashboardRouteRouteWithChildren,
   FlowRouteRoute: FlowRouteRouteWithChildren,
-  ConnectionsRoute: ConnectionsRoute,
-  SettingsGeneralRoute: SettingsGeneralRoute,
-  SettingsIndexRoute: SettingsIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -194,15 +295,21 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/flow",
-        "/connections",
-        "/settings/general",
-        "/settings/"
+        "/_dashboard",
+        "/flow"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/_dashboard": {
+      "filePath": "_dashboard/route.tsx",
+      "children": [
+        "/_dashboard/projects",
+        "/_dashboard/templates",
+        "/_dashboard/",
+        "/_dashboard/settings/general",
+        "/_dashboard/connections/",
+        "/_dashboard/documentation/",
+        "/_dashboard/settings/"
+      ]
     },
     "/flow": {
       "filePath": "flow/route.tsx",
@@ -210,18 +317,37 @@ export const routeTree = rootRoute
         "/flow/"
       ]
     },
-    "/connections": {
-      "filePath": "connections.tsx"
+    "/_dashboard/projects": {
+      "filePath": "_dashboard/projects.tsx",
+      "parent": "/_dashboard"
     },
-    "/settings/general": {
-      "filePath": "settings/general.tsx"
+    "/_dashboard/templates": {
+      "filePath": "_dashboard/templates.tsx",
+      "parent": "/_dashboard"
+    },
+    "/_dashboard/": {
+      "filePath": "_dashboard/index.tsx",
+      "parent": "/_dashboard"
     },
     "/flow/": {
       "filePath": "flow/index.tsx",
       "parent": "/flow"
     },
-    "/settings/": {
-      "filePath": "settings/index.tsx"
+    "/_dashboard/settings/general": {
+      "filePath": "_dashboard/settings/general.tsx",
+      "parent": "/_dashboard"
+    },
+    "/_dashboard/connections/": {
+      "filePath": "_dashboard/connections/index.tsx",
+      "parent": "/_dashboard"
+    },
+    "/_dashboard/documentation/": {
+      "filePath": "_dashboard/documentation/index.tsx",
+      "parent": "/_dashboard"
+    },
+    "/_dashboard/settings/": {
+      "filePath": "_dashboard/settings/index.tsx",
+      "parent": "/_dashboard"
     }
   }
 }

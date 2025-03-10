@@ -2,9 +2,9 @@ import { ComponentPropsWithoutRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-import { Separator } from "../ui/separator";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "../ui/sidebar";
-import { AppSidebar } from "./shared/app-sidebar";
+import { Separator } from "../../ui/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "../../ui/sidebar";
+import { AppSidebar } from "./app-sidebar";
 
 const LayoutRoot = (props: ComponentPropsWithoutRef<"main">) => {
   return <div {...props} className={cn("flex h-screen flex-col", props.className)} />;
@@ -29,6 +29,6 @@ const Content = (props: ComponentPropsWithoutRef<"section">) => {
   );
 };
 
-export const PageLayout = Object.assign(LayoutRoot, {
+export const AppLayout = Object.assign(LayoutRoot, {
   Content,
 });

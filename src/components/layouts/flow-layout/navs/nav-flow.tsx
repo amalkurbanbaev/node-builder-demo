@@ -1,6 +1,5 @@
 "use client";
 
-import { Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -23,24 +22,25 @@ export function NavFlow({
 }: {
   items: {
     title: string;
-    url: string;
     icon: LucideIcon;
-    isActive?: boolean;
     items?: {
       title: string;
-      url: string;
+      icon: LucideIcon;
     }[];
   }[];
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Компоненты</SidebarGroupLabel>
+      <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
-          <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
+          <Collapsible key={item.title} asChild>
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip={item.title}>
-                Component {item.title}
+                <div>
+                  <item.icon />
+                  <span>{item.title}</span>
+                </div>
               </SidebarMenuButton>
               {item.items?.length ? (
                 <>
@@ -55,9 +55,10 @@ export function NavFlow({
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
-                            <Link to={subItem.url}>
+                            <div>
+                              <subItem.icon />
                               <span>{subItem.title}</span>
-                            </Link>
+                            </div>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}

@@ -1,9 +1,8 @@
 "use client";
 
 import { Link } from "@tanstack/react-router";
-import { PlusIcon, Workflow } from "lucide-react";
+import { Workflow } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -13,13 +12,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { SIDEBAR_FLOW_DATA } from "@/constants/sidebar-flow-data";
+import { SIDEBAR_DATA } from "@/constants/sidebar-data";
 
 import type * as React from "react";
 
-import { NavFlow } from "./nav-flow";
+import { NavMain } from "./navs/nav-main";
+import { NavUser } from "./navs/nav-user";
 
-export function FlowSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant="floating" className="md:flex" {...props}>
       <SidebarHeader>
@@ -40,13 +40,10 @@ export function FlowSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavFlow items={SIDEBAR_FLOW_DATA.navMain} />
+        <NavMain items={SIDEBAR_DATA.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <Button>
-          <PlusIcon />
-          Создать компонент
-        </Button>
+        <NavUser user={SIDEBAR_DATA.user} />
       </SidebarFooter>
     </Sidebar>
   );

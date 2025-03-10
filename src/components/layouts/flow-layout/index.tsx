@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 
-import { AppSidebar } from "../shared/app-sidebar";
+import { FlowSidebar } from "./flow-sidebar";
 
 const FlowLayoutRoot = (props: ComponentPropsWithoutRef<"main">) => {
   return <div {...props} className={cn("flex h-screen flex-col", props.className)} />;
@@ -12,7 +12,7 @@ const FlowLayoutRoot = (props: ComponentPropsWithoutRef<"main">) => {
 const Content = (props: ComponentPropsWithoutRef<"section">) => {
   return (
     <SidebarProvider defaultOpen={true}>
-      <AppSidebar />
+      <FlowSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex items-center gap-2 px-4">

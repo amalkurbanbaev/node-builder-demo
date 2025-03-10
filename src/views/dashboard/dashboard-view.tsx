@@ -3,20 +3,21 @@ import { Activity, AlertCircle, Clock, Folder, MoreVertical, Pause, Play, Plus }
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 export default function DashboardView() {
   return (
     <div className="container space-y-6 py-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight">Панель управления</h1>
-        <Button size="sm" className="gap-1">
+        <Link to="/flow" className={cn(buttonVariants({ variant: "default" }), "gap-1")}>
           <Plus size={14} />
           <span>Создать новый проект</span>
-        </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -33,7 +34,7 @@ export default function DashboardView() {
           </CardHeader>
           <CardContent className="space-y-2 px-4 pt-2">
             {/* Проект 1 */}
-            <div className="hover:bg-muted/50 flex items-center space-x-3 rounded-lg p-2 transition-colors">
+            <Link to="/flow" className="hover:bg-muted/50 flex items-center space-x-3 rounded-lg p-2 transition-colors">
               <div className="bg-primary/10 rounded-md p-1.5">
                 <Folder className="text-primary h-4 w-4" />
               </div>
@@ -49,10 +50,10 @@ export default function DashboardView() {
               <Button variant="ghost" size="icon" className="h-6 w-6">
                 <MoreVertical className="h-3 w-3" />
               </Button>
-            </div>
+            </Link>
 
             {/* Проект 2 */}
-            <div className="hover:bg-muted/50 flex items-center space-x-3 rounded-lg p-2 transition-colors">
+            <Link to="/flow" className="hover:bg-muted/50 flex items-center space-x-3 rounded-lg p-2 transition-colors">
               <div className="bg-primary/10 rounded-md p-1.5">
                 <Folder className="text-primary h-4 w-4" />
               </div>
@@ -68,10 +69,10 @@ export default function DashboardView() {
               <Button variant="ghost" size="icon" className="h-6 w-6">
                 <MoreVertical className="h-3 w-3" />
               </Button>
-            </div>
+            </Link>
 
             {/* Проект 3 */}
-            <div className="hover:bg-muted/50 flex items-center space-x-3 rounded-lg p-2 transition-colors">
+            <Link to="/flow" className="hover:bg-muted/50 flex items-center space-x-3 rounded-lg p-2 transition-colors">
               <div className="bg-primary/10 rounded-md p-1.5">
                 <Folder className="text-primary h-4 w-4" />
               </div>
@@ -87,20 +88,20 @@ export default function DashboardView() {
               <Button variant="ghost" size="icon" className="h-6 w-6">
                 <MoreVertical className="h-3 w-3" />
               </Button>
-            </div>
+            </Link>
           </CardContent>
           <CardFooter className="px-4 py-2">
-            <Button variant="outline" size="sm" className="h-7 w-full gap-1 text-xs">
+            <Link to="/flow" className={cn(buttonVariants({ variant: "outline" }), "h-7 w-full gap-1 text-xs")}>
               <Plus size={12} />
               <span>Создать новый проект</span>
-            </Button>
+            </Link>
           </CardFooter>
         </Card>
 
         {/* Создать новый проект */}
 
         <Card className="bg-muted/50">
-          <Link to="/flow" className="flex flex-col justify-between h-full">
+          <Link to="/flow" className="flex h-full flex-col justify-between">
             <CardHeader className="px-4 py-1">
               <CardTitle className="text-base">Создать новый проект</CardTitle>
               <CardDescription className="text-xs">Начните работу с новым ИИ проектом</CardDescription>

@@ -19,11 +19,11 @@ export const SIDEBAR_DATA = {
         },
         {
           title: "Мои проекты",
-          url: "/dashboard",
+          url: "/projects",
         },
         {
           title: "Шаблоны",
-          url: "/store",
+          url: "/templates",
         },
       ],
     },
