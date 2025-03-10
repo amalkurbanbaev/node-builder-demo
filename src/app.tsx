@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
 import { ZodError } from "zod";
 
 import { ThemeProvider } from "./components/providers/theme-provider";
@@ -20,13 +20,21 @@ const queryClient = new QueryClient({
   },
 });
 
+const memoryHistory = createMemoryHistory({
+  initialEntries: ["/"], // Pass your initial url
+});
+
 const router = createRouter({
   routeTree,
+  history: memoryHistory,
   context: {
     queryClient,
   },
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
+  defaultNotFoundComponent: () => (
+    <div className="flex h-full w-full items-center justify-center">Страница не найдена</div>
+  ),
 });
 
 declare module "@tanstack/react-router" {
