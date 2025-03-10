@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 import {
   addEdge,
@@ -10,21 +10,25 @@ import {
   SelectionMode,
   useEdgesState,
   useNodesState,
+  useReactFlow,
 } from "@xyflow/react";
 import { useLocalStorage } from "usehooks-ts";
 
-import { edgeTypes, initialEdges } from "@/components/edges";
-import { Droppable } from "@/components/layouts/flow-layout/components/droppable";
+import { initialEdges } from "@/components/edges";
+import { useDnD } from "@/components/layouts/flow-layout/components/dnd-provider";
 import { initialNodes, nodeTypes } from "@/components/nodes";
 import { useTheme } from "@/components/providers/theme-provider";
 
-// let id = 0;
-// const getId = () => `dndnode_${id++}`;
+let id = 0;
+const getId = () => `dndnode_${id++}`;
 
 export default function StageFlow() {
-  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect: OnConnect = useCallback((connection) => setEdges((edges) => addEdge(connection, edges)), [setEdges]);
+  const { screenToFlowPosition } = useReactFlow();
+  const [type] = useDnD();
+  const reactFlowWrapper = useRef(null);
 
   const { theme } = useTheme();
 
@@ -42,43 +46,48 @@ export default function StageFlow() {
         }
       : null;
 
-  // const { screenToFlowPosition } = useReactFlow();
-  // const createNode = useCallback(() => {
-  //   // check if the dropped element is valid
-  //   //   if (!type) {
-  //   //     return;
-  //   //   }
+  const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  }, []);
 
-  //   // project was renamed to screenToFlowPosition
-  //   // and you don't need to subtract the reactFlowBounds.left/top anymore
-  //   // details: https://reactflow.dev/whats-new/2023-11-10
-  //   const position = screenToFlowPosition({
-  //     x: -150,
-  //     y: -150,
-  //   });
-  //   const newNode = {
-  //     id: getId(),
-  //     type: "position-logger",
-  //     position,
-  //     data: { label: `default node` },
-  //   };
+  const onDrop = useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
 
-  //   console.log(newNode);
+      // check if the dropped element is valid
+      if (!type) {
+        return;
+      }
 
-  //   setNodes((nds) => nds.concat(newNode));
-  // }, [screenToFlowPosition, setNodes]);
+      const position = screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+      const newNode = {
+        id: getId(),
+        type: type as "position-logger" | "input",
+        position,
+        data: { label: `${type} node` },
+      };
+
+      setNodes((nds) => nds.concat(newNode));
+    },
+    [screenToFlowPosition, setNodes, type],
+  );
 
   return (
-    <Droppable id="flow">
+    <div className="flex h-full w-full flex-col" ref={reactFlowWrapper}>
       <ReactFlow
         colorMode={theme}
         nodes={nodes}
-        nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
         edges={edges}
-        edgeTypes={edgeTypes}
+        onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onDrop={onDrop}
+        nodeTypes={nodeTypes}
+        onDragOver={onDragOver}
         fitView
         {...panProps}
       >
@@ -94,6 +103,6 @@ export default function StageFlow() {
         {showMinimap && <MiniMap />}
         <Controls />
       </ReactFlow>
-    </Droppable>
+    </div>
   );
 }

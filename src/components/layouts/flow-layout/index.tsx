@@ -5,7 +5,7 @@ import { ReactFlowProvider } from "@xyflow/react";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 
-import { DndProvider } from "./components/dnd-provider";
+import { DnDProvider } from "./components/dnd-provider";
 import { FlowSidebar } from "./flow-sidebar";
 
 const FlowLayoutRoot = (props: ComponentPropsWithoutRef<"main">) => {
@@ -16,7 +16,7 @@ const Content = (props: ComponentPropsWithoutRef<"section">) => {
   return (
     <ReactFlowProvider>
       <SidebarProvider defaultOpen={true}>
-        <DndProvider>
+        <DnDProvider>
           {/* здесь рендерится sidebar с компонентами */}
           <FlowSidebar />
 
@@ -30,7 +30,7 @@ const Content = (props: ComponentPropsWithoutRef<"section">) => {
               <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min">{props.children}</div>
             </div>
           </SidebarInset>
-        </DndProvider>
+        </DnDProvider>
       </SidebarProvider>
     </ReactFlowProvider>
   );

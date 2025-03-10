@@ -2,10 +2,12 @@ import {
   Calendar1Icon,
   FileIcon,
   GitPullRequestArrowIcon,
+  InfinityIcon,
   PlayIcon,
   SheetIcon,
   SplitIcon,
   UndoDotIcon,
+  XIcon,
 } from "lucide-react";
 
 export const FLOW_SIDEBAR_DATA = {
@@ -43,6 +45,14 @@ export const FLOW_SIDEBAR_DATA = {
         {
           title: "Или",
           icon: UndoDotIcon,
+        },
+        {
+          title: "Не",
+          icon: XIcon,
+        },
+        {
+          title: "Цикл",
+          icon: InfinityIcon,
         },
       ],
     },
