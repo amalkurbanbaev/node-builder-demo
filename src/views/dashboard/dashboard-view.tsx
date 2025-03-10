@@ -149,10 +149,12 @@ export default function DashboardView() {
                     </div>
                   </div>
                 </div>
-                <Badge className="bg-green-500 px-1.5 py-0 text-xs">Работает</Badge>
-                <Button variant="ghost" size="icon" className="h-6 w-6">
-                  <Pause className="h-3 w-3" />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-green-500 px-1.5 py-0 text-xs">Работает</Badge>
+                  <Button variant="ghost" size="icon" className="h-6 w-6">
+                    <Pause className="h-3 w-3" />
+                  </Button>
+                </div>
               </div>
               <Progress value={78} className="h-1.5" />
               <div className="text-muted-foreground flex justify-between text-[10px]">
@@ -182,12 +184,14 @@ export default function DashboardView() {
                     </div>
                   </div>
                 </div>
-                <Badge variant="outline" className="border-amber-500 px-1.5 py-0 text-xs text-amber-500">
-                  Пауза
-                </Badge>
-                <Button variant="ghost" size="icon" className="h-6 w-6">
-                  <Play className="h-3 w-3" />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className="border-amber-500 px-1.5 py-0 text-xs text-amber-500">
+                    Пауза
+                  </Badge>
+                  <Button variant="ghost" size="icon" className="h-6 w-6">
+                    <Play className="h-3 w-3" />
+                  </Button>
+                </div>
               </div>
               <Progress value={45} className="h-1.5" />
               <div className="text-muted-foreground flex justify-between text-[10px]">
@@ -217,12 +221,14 @@ export default function DashboardView() {
                     </div>
                   </div>
                 </div>
-                <Badge variant="destructive" className="px-1.5 py-0 text-xs">
-                  Ошибка
-                </Badge>
-                <Button variant="ghost" size="icon" className="h-6 w-6">
-                  <MoreVertical className="h-3 w-3" />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Badge variant="destructive" className="px-1.5 py-0 text-xs">
+                    Ошибка
+                  </Badge>
+                  <Button variant="ghost" size="icon" className="h-6 w-6">
+                    <MoreVertical className="h-3 w-3" />
+                  </Button>
+                </div>
               </div>
               <Progress value={23} className="h-1.5" />
               <div className="text-muted-foreground flex justify-between text-[10px]">
