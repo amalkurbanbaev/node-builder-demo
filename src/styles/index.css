@@ -128,6 +128,9 @@
   #root {
     height: 100%;
   }
+  .react-flow__attribution {
+    @apply hidden;
+  }
 }
 
 @utility container {

@@ -12,16 +12,18 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { FLOW_SIDEBAR_DATA } from "@/constants/flow-sidebar-data";
 
 import type * as React from "react";
 
 import { NavFlow } from "./navs/nav-flow";
+import { SearchForm } from "./navs/search-form";
 
 export function FlowSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="floating" className="md:flex" {...props}>
+    <Sidebar variant="inset" className="md:flex" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -36,8 +38,12 @@ export function FlowSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 </div>
               </Link>
             </SidebarMenuButton>
+
+            <SidebarSeparator className="my-2" />
           </SidebarMenuItem>
         </SidebarMenu>
+
+        <SearchForm />
       </SidebarHeader>
       <SidebarContent>
         <NavFlow items={FLOW_SIDEBAR_DATA.components} />

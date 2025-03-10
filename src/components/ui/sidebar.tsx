@@ -185,7 +185,7 @@ function Sidebar({
   }
 
   return (
-    <div
+    <aside
       className="text-sidebar-foreground group peer hidden md:block"
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
@@ -225,7 +225,7 @@ function Sidebar({
           {children}
         </div>
       </div>
-    </div>
+    </aside>
   );
 }
 

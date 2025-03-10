@@ -13,14 +13,12 @@ const Content = (props: ComponentPropsWithoutRef<"section">) => {
   return (
     <SidebarProvider defaultOpen={true}>
       <FlowSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
+      <SidebarInset className="overflow-clip">
+        <div className="flex flex-1 flex-col pt-0">
+          <div className="bg-background absolute left-4 top-4 z-50 flex items-center gap-2 rounded-lg p-2">
+            <SidebarTrigger className="cursor-pointer" />
           </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="min-h-[100vh] flex-1 rounded-xl p-4 md:min-h-min">{props.children}</div>
+          <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min">{props.children}</div>
         </div>
       </SidebarInset>
     </SidebarProvider>

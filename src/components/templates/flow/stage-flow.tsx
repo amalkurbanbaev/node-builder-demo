@@ -13,14 +13,18 @@ import {
 
 import { edgeTypes, initialEdges } from "@/components/edges";
 import { initialNodes, nodeTypes } from "@/components/nodes";
+import { useTheme } from "@/components/providers/theme-provider";
 
 export default function StageFlow() {
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect: OnConnect = useCallback((connection) => setEdges((edges) => addEdge(connection, edges)), [setEdges]);
 
+  const { theme } = useTheme();
+
   return (
     <ReactFlow
+      colorMode={theme}
       nodes={nodes}
       nodeTypes={nodeTypes}
       onNodesChange={onNodesChange}
