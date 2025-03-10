@@ -27,7 +27,7 @@ export default function StageFlow() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect: OnConnect = useCallback((connection) => setEdges((edges) => addEdge(connection, edges)), [setEdges]);
   const { screenToFlowPosition } = useReactFlow();
-  const [type] = useDnD();
+  const [type, nodeData] = useDnD();
   const reactFlowWrapper = useRef(null);
 
   const { theme } = useTheme();
@@ -56,7 +56,7 @@ export default function StageFlow() {
       event.preventDefault();
 
       // check if the dropped element is valid
-      if (!type) {
+      if (!type || !nodeData) {
         return;
       }
 
@@ -64,16 +64,22 @@ export default function StageFlow() {
         x: event.clientX,
         y: event.clientY,
       });
+
+      const hardType = type as "position-logger" | "input" | "custom";
+
       const newNode = {
         id: getId(),
-        type: type as "position-logger" | "input",
+        type: hardType,
         position,
-        data: { label: `${type} node` },
+        data: {
+          label: nodeData.title || `${type} node`,
+          icon: nodeData.icon,
+        },
       };
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [screenToFlowPosition, setNodes, type],
+    [screenToFlowPosition, setNodes, type, nodeData],
   );
 
   return (

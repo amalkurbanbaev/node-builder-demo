@@ -31,11 +31,23 @@ export function NavFlow({
     }[];
   }[];
 }) {
-  const [, setType] = useDnD();
+  const [, , setDnDState] = useDnD();
 
-  const onDragStart = (event: React.DragEvent<HTMLLIElement>, type: "position-logger" | "input") => {
-    setType(type);
+  const onDragStart = (event: React.DragEvent<HTMLLIElement>, item: { title: string; icon: LucideIcon }) => {
+    // Устанавливаем тип и данные ноды
+    setDnDState(item.title.toLowerCase().replace(/\s+/g, "-"), {
+      title: item.title,
+      icon: item.icon,
+    });
+
+    // Устанавливаем данные для перетаскивания
+    event.dataTransfer.setData("application/reactflow", item.title);
     event.dataTransfer.effectAllowed = "move";
+  };
+
+  const onDragEnd = () => {
+    // Сбрасываем состояние после завершения перетаскивания
+    setDnDState(null, null);
   };
 
   return (
@@ -63,7 +75,8 @@ export function NavFlow({
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem
-                          onDragStart={(event) => onDragStart(event, "position-logger")}
+                          onDragStart={(event) => onDragStart(event, subItem)}
+                          onDragEnd={onDragEnd}
                           className="flex cursor-grab"
                           draggable
                           key={subItem.title}

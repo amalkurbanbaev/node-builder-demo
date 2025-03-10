@@ -1,5 +1,6 @@
 import type { NodeTypes } from "@xyflow/react";
 
+import { CustomNode } from "./custom-node";
 import { InputNode } from "./input-node";
 import { PositionLoggerNode } from "./position-logger-node";
 import { AppNode } from "./types";
@@ -17,12 +18,13 @@ export const initialNodes: AppNode[] = [
     id: "d",
     type: "output",
     position: { x: 0, y: 200 },
-    data: { label: "with React Flow" },
+    data: { label: "i am here" },
   },
 ];
 
 export const nodeTypes = {
   "position-logger": PositionLoggerNode,
   "input": InputNode,
+  "custom": CustomNode,
   // Add any of your custom nodes here!
 } satisfies NodeTypes;

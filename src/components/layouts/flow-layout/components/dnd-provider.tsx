@@ -1,15 +1,30 @@
 import { createContext, useContext, useState } from "react";
 
-const DnDContext = createContext<[string | null, (type: "position-logger" | "input") => void]>([null, () => {}]);
+import { LucideIcon } from "lucide-react";
 
-export const DnDProvider = ({ children }: { children: React.ReactNode }) => {
-  const [type, setType] = useState<"position-logger" | "input" | null>(null);
-
-  return <DnDContext.Provider value={[type, setType]}>{children}</DnDContext.Provider>;
+// Определяем тип для данных ноды
+type NodeData = {
+  title: string;
+  icon?: LucideIcon;
 };
 
-export default DnDContext;
+// Создаем контекст, который будет хранить тип и данные ноды
+const DnDContext = createContext<
+  [string | null, NodeData | null, (type: string | null, data: NodeData | null) => void]
+>([null, null, () => {}]);
 
-export const useDnD = () => {
+export function DnDProvider({ children }: { children: React.ReactNode }) {
+  const [type, setType] = useState<string | null>(null);
+  const [nodeData, setNodeData] = useState<NodeData | null>(null);
+
+  const setDnDState = (newType: string | null, data: NodeData | null) => {
+    setType(newType);
+    setNodeData(data);
+  };
+
+  return <DnDContext.Provider value={[type, nodeData, setDnDState]}>{children}</DnDContext.Provider>;
+}
+
+export function useDnD() {
   return useContext(DnDContext);
-};
+}
