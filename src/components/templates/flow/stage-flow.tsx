@@ -14,8 +14,12 @@ import {
 import { useLocalStorage } from "usehooks-ts";
 
 import { edgeTypes, initialEdges } from "@/components/edges";
+import { Droppable } from "@/components/layouts/flow-layout/components/droppable";
 import { initialNodes, nodeTypes } from "@/components/nodes";
 import { useTheme } from "@/components/providers/theme-provider";
+
+// let id = 0;
+// const getId = () => `dndnode_${id++}`;
 
 export default function StageFlow() {
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
@@ -38,24 +42,58 @@ export default function StageFlow() {
         }
       : null;
 
+  // const { screenToFlowPosition } = useReactFlow();
+  // const createNode = useCallback(() => {
+  //   // check if the dropped element is valid
+  //   //   if (!type) {
+  //   //     return;
+  //   //   }
+
+  //   // project was renamed to screenToFlowPosition
+  //   // and you don't need to subtract the reactFlowBounds.left/top anymore
+  //   // details: https://reactflow.dev/whats-new/2023-11-10
+  //   const position = screenToFlowPosition({
+  //     x: -150,
+  //     y: -150,
+  //   });
+  //   const newNode = {
+  //     id: getId(),
+  //     type: "position-logger",
+  //     position,
+  //     data: { label: `default node` },
+  //   };
+
+  //   console.log(newNode);
+
+  //   setNodes((nds) => nds.concat(newNode));
+  // }, [screenToFlowPosition, setNodes]);
+
   return (
-    <ReactFlow
-      colorMode={theme}
-      nodes={nodes}
-      nodeTypes={nodeTypes}
-      onNodesChange={onNodesChange}
-      edges={edges}
-      edgeTypes={edgeTypes}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      fitView
-      {...panProps}
-    >
-      {showGrid && (
-        <Background gap={12} bgColor="var(--muted)" color="var(--muted-foreground)" className="opacity-50" size={1.1} />
-      )}
-      {showMinimap && <MiniMap />}
-      <Controls />
-    </ReactFlow>
+    <Droppable id="flow">
+      <ReactFlow
+        colorMode={theme}
+        nodes={nodes}
+        nodeTypes={nodeTypes}
+        onNodesChange={onNodesChange}
+        edges={edges}
+        edgeTypes={edgeTypes}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        fitView
+        {...panProps}
+      >
+        {showGrid && (
+          <Background
+            gap={12}
+            bgColor="var(--muted)"
+            color="var(--muted-foreground)"
+            className="opacity-50"
+            size={1.1}
+          />
+        )}
+        {showMinimap && <MiniMap />}
+        <Controls />
+      </ReactFlow>
+    </Droppable>
   );
 }

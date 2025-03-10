@@ -23,10 +23,10 @@ import { SearchForm } from "./navs/search-form";
 
 export function FlowSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="inset" className="md:flex" {...props}>
+    <Sidebar variant="inset" className="md:flex overflow-hidden" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
+        <SidebarMenu className="overflow-hidden">
+          <SidebarMenuItem className="overflow-hidden">
             <SidebarMenuButton size="lg" asChild>
               <Link to="/" className="flex items-center gap-2">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
@@ -45,10 +45,10 @@ export function FlowSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
 
         <SearchForm />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="overflow-hidden">
         <NavFlow items={FLOW_SIDEBAR_DATA.components} />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="overflow-hidden">
         <Button>
           <PlusIcon />
           Создать компонент
