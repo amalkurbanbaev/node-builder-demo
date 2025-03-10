@@ -34,12 +34,12 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
 
       // Используем встроенный метод React Flow для корректного преобразования координат с учетом viewport и zoom
       const position = screenToFlowPosition({ x: clientX, y: clientY });
-      const simplePosition = { x: clientX, y: clientY };
+      //   const simplePosition = { x: clientX, y: clientY };
 
       const newNode: Node = {
         id: getId(),
         type: "input",
-        position: simplePosition,
+        position,
         data: {
           label: `${type} node`,
           ...active.data.current,
