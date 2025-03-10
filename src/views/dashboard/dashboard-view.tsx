@@ -91,7 +91,7 @@ export default function DashboardView() {
             </Link>
           </CardContent>
           <CardFooter className="px-4 py-2">
-            <Link to="/flow" className={cn(buttonVariants({ variant: "outline" }), "h-7 w-full gap-1 text-xs")}>
+            <Link to="/flow" className={cn(buttonVariants({ variant: "outline" }), "w-full gap-1 text-xs")}>
               <Plus size={12} />
               <span>Создать новый проект</span>
             </Link>
@@ -110,16 +110,14 @@ export default function DashboardView() {
               <div className="bg-background rounded-full p-3">
                 <Plus className="text-primary h-6 w-6" />
               </div>
-              <div className="space-y-1 text-center">
+              <div className="max-w-[280px] space-y-1 text-center">
                 <p className="text-muted-foreground text-xs">
-                  Создайте новый проект для интеграции ИИ агентов с вашими сервисами
+                  Создайте новый проект для&nbsp;интеграции ИИ&nbsp;агентов с&nbsp;вашими сервисами
                 </p>
               </div>
             </CardContent>
             <CardFooter className="px-4 py-2">
-              <Button size="sm" className="w-full text-xs">
-                Начать новый проект
-              </Button>
+              <Button className="w-full text-xs">Начать новый проект</Button>
             </CardFooter>
           </Link>
         </Card>
@@ -246,7 +244,7 @@ export default function DashboardView() {
             Обновить статусы
           </Button>
           <Button variant="ghost" size="sm" className="h-7 text-xs">
-            Просмотреть все агенты
+            Просмотреть всех агентов
           </Button>
         </CardFooter>
       </Card>
