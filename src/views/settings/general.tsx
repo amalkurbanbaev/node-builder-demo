@@ -1,6 +1,5 @@
-import { useState } from "react";
-
-import { Moon, MousePointer, Move, Sun } from "lucide-react";
+import { Moon, MousePointerClick, SquareDashedMousePointer, Sun } from "lucide-react";
+import { useLocalStorage } from "usehooks-ts";
 
 import { useTheme } from "@/components/providers/theme-provider";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +11,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function SettingsGeneralView() {
   const { theme, setTheme } = useTheme();
-  const [selectionMode, setSelectionMode] = useState<"click" | "drag">("click");
+
+  const [figmaMode, setFigmaMode] = useLocalStorage<"click" | "drag">("figma-mode", "click");
+  const [showGrid, setShowGrid] = useLocalStorage<boolean>("show-grid", true);
+  const [showMinimap, setShowMinimap] = useLocalStorage<boolean>("show-minimap", true);
 
   return (
     <div className="container max-w-3xl space-y-6 py-4">
@@ -87,22 +89,22 @@ export default function SettingsGeneralView() {
                 <Label className="text-sm">Режим выделения элементов</Label>
                 <div className="flex flex-col space-y-1.5">
                   <RadioGroup
-                    value={selectionMode}
-                    onValueChange={(value) => setSelectionMode(value as "click" | "drag")}
+                    value={figmaMode}
+                    onValueChange={(value) => setFigmaMode(value as "click" | "drag")}
                     className="flex flex-col space-y-1"
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="click" id="mode-click" className="h-4 w-4" />
                       <Label htmlFor="mode-click" className="flex items-center text-sm font-normal">
-                        <MousePointer className="h-3.5 w-3.5" />
-                        Выделение по нажатию
+                        <MousePointerClick className="h-3.5 w-3.5" />
+                        Выбор узлов
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="drag" id="mode-drag" className="h-4 w-4" />
                       <Label htmlFor="mode-drag" className="flex items-center text-sm font-normal">
-                        <Move className="h-3.5 w-3.5" />
-                        Выделение перетаскиванием
+                        <SquareDashedMousePointer className="h-3.5 w-3.5" />
+                        Выделение области
                       </Label>
                     </div>
                   </RadioGroup>
@@ -125,7 +127,7 @@ export default function SettingsGeneralView() {
                   <Label className="text-sm">Сетка редактора</Label>
                   <p className="text-muted-foreground text-xs">Показывать сетку в редакторе нод</p>
                 </div>
-                <Switch id="grid" defaultChecked />
+                <Switch id="grid" defaultChecked={showGrid} onCheckedChange={setShowGrid} />
               </div>
 
               <div className="flex items-center justify-between">
@@ -133,7 +135,7 @@ export default function SettingsGeneralView() {
                   <Label className="text-sm">Миниатюра схемы</Label>
                   <p className="text-muted-foreground text-xs">Показывать миниатюру схемы в углу редактора</p>
                 </div>
-                <Switch id="minimap" />
+                <Switch id="minimap" defaultChecked={showMinimap} onCheckedChange={setShowMinimap} />
               </div>
             </CardContent>
           </Card>
