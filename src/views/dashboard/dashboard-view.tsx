@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Activity, AlertCircle, Clock, Folder, MoreVertical, Pause, Play, Plus } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -136,7 +136,6 @@ export default function DashboardView() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Avatar className="h-6 w-6">
-                    <AvatarImage src="/agents/agent-1.png" />
                     <AvatarFallback className="bg-primary/10 text-primary text-xs">A1</AvatarFallback>
                   </Avatar>
                   <div>
@@ -171,7 +170,6 @@ export default function DashboardView() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Avatar className="h-6 w-6">
-                    <AvatarImage src="/agents/agent-2.png" />
                     <AvatarFallback className="bg-primary/10 text-primary text-xs">A2</AvatarFallback>
                   </Avatar>
                   <div>
@@ -208,7 +206,6 @@ export default function DashboardView() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Avatar className="h-6 w-6">
-                    <AvatarImage src="/agents/agent-3.png" />
                     <AvatarFallback className="bg-primary/10 text-primary text-xs">A3</AvatarFallback>
                   </Avatar>
                   <div>

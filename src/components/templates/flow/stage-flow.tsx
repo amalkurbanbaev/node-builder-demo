@@ -65,11 +65,9 @@ export default function StageFlow() {
         y: event.clientY,
       });
 
-      const hardType = type as "position-logger" | "input" | "custom";
-
       const newNode = {
         id: getId(),
-        type: hardType,
+        type: "custom" as const,
         position,
         data: {
           label: nodeData.title || `${type} node`,
